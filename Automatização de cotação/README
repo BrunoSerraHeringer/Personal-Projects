@@ -1,0 +1,52 @@
+Aplicação em C# (.NET) que monitora em tempo real a cotação de um ativo da B3 e dispara alertas automáticos por e‑mail sempre que o preço subir acima ou cair abaixo de valores definidos pelo usuário.
+Ideal para estudos, automações, rotinas de acompanhamento de mercado e práticas de estágio em programação.
+
+Funcionalidades
+
+ - Monitora continuamente a cotação de um ativo da B3 (ex.: PETR4, VALE3).
+ - Lê o ativo e os preços de referência diretamente pela linha de comando.
+ - Consulta uma API de mercado financeiro para obter a cotação atual.
+ - Envia alertas automáticos por e‑mail nas seguintes situações:
+📉 Preço abaixo do valor de compra → alerta de COMPRA
+📈 Preço acima do valor de venda → alerta de VENDA
+ - Leitura de configuração via arquivo externo appsettings.json
+ - Loop contínuo com intervalo configurável
+ - Tratamento de erros e funcionamento estável por longos períodos
+
+ Tecnologias utilizadas
+
+C# 10 / .NET 10
+HttpClient – consumo de API de cotações
+System.Net.Mail – envio de e‑mail via SMTP
+Microsoft.Extensions.Configuration – leitura de appsettings.json
+AlphaVantage API (ou outra API configurada)
+
+📦 Instalação
+1. Verificar se o .NET está instalado
+dotnet --version
+
+Se não estiver instalado:
+➡️ https://dotnet.microsoft.com/download
+
+⚙️ Configuração do arquivo appsettings.json
+Crie ou edite um arquivo chamado appsettings.json na raiz do projeto:
+🔐 Observações importantes sobre SMTP:
+Gmail: exige senha de aplicativo — não funciona com senha normal.
+Outlook/Hotmail: também pode exigir senha de app.
+Porta comum: 587 (TLS)
+SSL normalmente: true
+
+▶️ Execução do programa
+O programa exige 3 parâmetros obrigatórios:
+dotnet run <ATIVO> <PREÇO_VENDA> <PREÇO_COMPRA>
+
+🧠 Como o programa funciona (resumo técnico)
+
+Lê argumentos recebidos pela linha de comando
+Carrega as configurações do arquivo appsettings.json
+Entra em um loop infinito
+Consulta a API de preços da B3
+Compara o preço atual com os valores informados
+Dispara e‑mail se necessário
+Aguarda alguns segundos e repete
+O código utiliza async/await para evitar travar a aplicação e consumir excessivos recursos.
